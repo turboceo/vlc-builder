@@ -6,7 +6,11 @@
   "dependencies": {
     "handlebars": "^4.7.6"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "csv-parse": "^4.15.1",
+    "franchise-client": "^0.2.7",
+    "node-csv": "^0.1.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

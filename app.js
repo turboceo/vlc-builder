@@ -22,25 +22,20 @@ const template = Handlebars.compile(`<?xml version="1.0" encoding="UTF-8"?>
 	</extension>
 </playlist>`);
 
-let trackArr = []
-let s = fs.readFileSync('./src/2.txt').toString()
-let arr = s.split(/\r?\n/)
-arr.forEach((line, id) => {
-  let [title, url] = line.split(",");
-  console.log(title, url)
-  if(url !== undefined) {
-    trackArr.push({
-      title,
-      url,
-      id
-    })
-  }
-})
+let trackArr = [];
+let parse = require("csv-parse");
+let parser = parse({ 
+  columns: true,
+}, (err, record) => {
+    console.log(record);
+});
 
-let len = trackArr.length;
-let tidList = []
-for (let index = 0; index < len; index++) {
-  tidList.push(index)  
-}
-let str = template({ arr: trackArr, tidList })
-fs.writeFileSync('iptv.xspf', str)
+fs.createReadStream("./src/2.txt").pipe(parser);
+
+// let len = trackArr.length;
+// let tidList = []
+// for (let index = 0; index < len; index++) {
+//   tidList.push(index)
+// }
+// let str = template({ arr: trackArr, tidList })
+// fs.writeFileSync('iptv.xspf', str)
